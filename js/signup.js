@@ -1,11 +1,25 @@
-document.getElementById('signup-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+document
+    .getElementById("signup-form")
+    .addEventListener("submit", function (event) {
+        const form = this;
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+            document.getElementById("confirm-password").value;
 
-    console.log('Nome:', name, 'Email:', email, 'Senha:', password);
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
-    // Enviar ao backend para criar o usuário
-    // fetch('/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) });
-});
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            event.stopPropagation();
+            document
+                .getElementById("confirm-password")
+                .setCustomValidity("As senhas não coincidem.");
+        } else {
+            document.getElementById("confirm-password").setCustomValidity("");
+        }
+
+        form.classList.add("was-validated");
+    });

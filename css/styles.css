@@ -6,29 +6,423 @@
 
 @font-face {
     font-family: "Century Gothic";
-    src: url("../fonts/centurygothic.ttf") format("truetype");
+    src: url("../fonts/centurygothic_bold.ttf") format("truetype");
     font-weight: 700; /* Bold */
 }
 
-body {
-    font-family: "Century Gothic";
+:root {
+    --color-white: #fff;
+    --color-primary-green: #008171;
+    --color-primary-pink: #ffe5ff;
+
+    --font-size-3: 32.64px;
+    --font-size-2: 13.53px;
+    --font-size-1: 11.14px;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Century Gothic", sans-serif;
+    overflow: hidden;
+}
+
+/* -------------------------------------- 
+    LOGIN AND SIGN UP STYLE 
+-------------------------------------- */
+
+/* ------- General Page Styles ------- */
 
 #login-page,
 #signup-page {
-    background-image: url(../img/gradient-bg.png);
-    background-size: cover;
-
-    height: 100vh;
-
+    position: relative;
+    color: var(--color-white);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.form-container {
-    background-color: rgba(255, 255, 255, 0.085);
-    backdrop-filter: blur(2px);
+.banner-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
 
+.form-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 39px;
+}
+
+.form-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.085);
+    backdrop-filter: blur(3px);
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.7));
     border-radius: 24px;
+    z-index: -1;
+}
+
+.animated-bg-container {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+}
+
+.pink-circle {
+    position: absolute;
+    width: 342px;
+    height: 342px;
+    top: 5%;
+    right: -20%;
+    animation: float-bottom 6s ease-in-out infinite;
+}
+
+.green-circle {
+    position: absolute;
+    width: 185px;
+    height: 185px;
+    bottom: -100px;
+    left: 350px;
+    animation: float-right 5s ease-in-out infinite;
+}
+
+.purple-circle {
+    position: absolute;
+    width: 246px;
+    height: 246px;
+    top: 0%;
+    left: 8vw;
+    animation: float-left 7s ease-in-out infinite;
+}
+
+.blue-circle {
+    position: absolute;
+    width: 454px;
+    height: 454px;
+    bottom: -25%;
+    left: -22%;
+    transform: translate(0, 0);
+    animation: float-top 8s ease-in-out infinite;
+}
+
+@keyframes float-top {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float-bottom {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+}
+
+@keyframes float-left {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes float-right {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
+}
+
+@media (max-width: 920px) {
+    .form-container {
+        width: 90%;
+        height: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .pink-circle,
+    .green-circle,
+    .purple-circle,
+    .blue-circle {
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .pink-circle {
+        width: calc(342px - (342px * 0.3));
+    }
+
+    .green-circle {
+        width: calc(185px - (185px * 0.3));
+        bottom: -70px;
+        left: 250px;
+    }
+
+    .purple-circle {
+        width: calc(246px - (246px * 0.3));
+        top: 5%;
+        left: 15vw;
+    }
+
+    .blue-circle {
+        width: calc(454px - (454px * 0.3));
+        bottom: -15%;
+        left: -20%;
+    }
+}
+
+@media (max-width: 576px) {
+    .pink-circle {
+        width: calc(342px - (342px * 0.5));
+    }
+
+    .green-circle {
+        width: calc(185px - (185px * 0.5));
+        bottom: -55px;
+        left: 140px;
+    }
+
+    .purple-circle {
+        width: calc(246px - (246px * 0.5));
+        left: 9vw;
+    }
+
+    .blue-circle {
+        width: calc(454px - (454px * 0.5));
+        bottom: -10%;
+        left: -35%;
+    }
+}
+
+/* ------- Page-Specific Styles ------- */
+
+#login-page .form-container {
+    max-width: 850px;
+    max-height: 600px;
+}
+
+#signup-page .form-container {
+    max-width: 850px;
+    max-height: 737px;
+}
+
+/* ------- Form Styles ------- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+}
+
+#login-form {
+    max-height: 463px;
+}
+
+#signup-form {
+    max-height: 539px;
+}
+
+/* ------- Form Header ------- */
+
+.form-header {
+    display: flex;
+    height: 100%;
+    max-height: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-header legend,
+.form-header h2 {
+    font-size: var(--font-size-3);
+    color: #ffe5ff;
+    margin: 0;
+}
+
+.form-header legend {
+    text-align: center;
+    font-weight: 700;
+}
+
+/* ------- Form Body ------- */
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#login-form .form-body {
+    max-height: 285px;
+}
+
+#signup-form .form-body {
+    max-height: 356px;
+}
+
+.form-body-main {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#login-form .form-body-main {
+    max-height: 163px;
+}
+
+#signup-form .form-body-main {
+    max-height: 268px;
+}
+
+#login-form .form-body-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-height: 71px;
+}
+
+/* ------- Input and Placeholder ------- */
+
+.form-control {
+    font-size: var(--font-size-2);
+    color: var(--color-white) !important;
+    background-color: rgba(217, 217, 217, 0.3);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 20px;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ------- Checkbox ------- */
+
+.form-check-input {
+    background-color: transparent;
+}
+
+.form-check-label {
+    font-size: var(--font-size-2);
+}
+
+/* ------- Links ------- */
+
+.forgot-password {
+    font-size: var(--font-size-1);
+    color: var(--color-white);
+}
+
+/* ------- Buttons ------- */
+
+.btn-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-wrapper a {
+    font-size: var(--font-size-2);
+    height: 37px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-page .btn-wrapper a {
+    max-width: 115px;
+}
+
+#signup-page .btn-wrapper a {
+    max-width: 133px;
+}
+
+.btn-wrapper a:hover {
+    color: var(--color-primary-green);
+}
+
+.btn-wrapper button {
+    color: var(--color-primary-green);
+    font-size: var(--font-size-2);
+    width: 100%;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-wrapper button:hover {
+    color: var(--color-white);
+    background: transparent;
+    border-color: var(--color-white);
+}
+
+/* ------- Validation ------- */
+
+#signup-form .invalid-feedback,
+#login-form .invalid-feedback {
+    margin: 0;
+    font-size: 10px;
+    position: absolute;
+}
+
+.was-validated .form-control:invalid {
+    background-color: rgba(220, 53, 69, 0.2);
+}
+
+.was-validated .form-control:valid {
+    background-color: rgba(25, 135, 84, 0.2);
+}
+
+.was-validated .form-check-input:invalid,
+.was-validated .form-check-input:valid {
+    background-color: transparent;
+    border-color: inherit;
+    box-shadow: none;
+    color: var(--color-white);
+}
+
+.was-validated .form-check-input:valid ~ .form-check-label {
+    color: var(--color-white);
+}
+
+.was-validated .form-check-input:valid:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
 }
