@@ -23,7 +23,7 @@ document
                 document.getElementById("email").setCustomValidity("");
                 document.getElementById("password").setCustomValidity("");
 
-                window.location.href = "/home.html";
+                window.location.href = "/home.html#transactions";
             } catch (error) {
                 document
                     .getElementById("email")

@@ -12,8 +12,11 @@
 
 :root {
     --color-white: #fff;
-    --color-primary-green: #008171;
-    --color-primary-pink: #ffe5ff;
+    --color-green: #008171;
+    --color-dark-green: #004e44;
+    --color-pink: #ffe5ff;
+    --color-red: #810000;
+    --color-dark-gray: #444;
 
     --font-size-3: 32.64px;
     --font-size-2: 13.53px;
@@ -32,6 +35,7 @@ body {
     height: 100%;
     font-family: "Century Gothic", sans-serif;
     overflow: hidden;
+    color: var(--color-dark-gray);
 }
 
 /* -------------------------------------- 
@@ -99,7 +103,7 @@ body {
     height: 185px;
     bottom: -100px;
     left: 350px;
-    animation: float-right 5s ease-in-out infinite;
+    animation: float-right 4s ease-in-out infinite;
 }
 
 .purple-circle {
@@ -108,7 +112,7 @@ body {
     height: 246px;
     top: 0%;
     left: 8vw;
-    animation: float-left 7s ease-in-out infinite;
+    animation: float-left 5s ease-in-out infinite;
 }
 
 .blue-circle {
@@ -322,7 +326,7 @@ form {
 .form-control {
     font-size: var(--font-size-2);
     color: var(--color-white) !important;
-    background-color: rgba(217, 217, 217, 0.3);
+    background-color: rgba(217, 217, 217, 0.3) !important;
     border: none;
     border-radius: 8px;
     padding: 15px 20px;
@@ -374,11 +378,11 @@ form {
 }
 
 .btn-wrapper a:hover {
-    color: var(--color-primary-green);
+    color: var(--color-green);
 }
 
 .btn-wrapper button {
-    color: var(--color-primary-green);
+    color: var(--color-green);
     font-size: var(--font-size-2);
     width: 100%;
     height: 37px;
@@ -425,4 +429,395 @@ form {
 .was-validated .form-check-input:valid:checked {
     background-color: #0d6efd;
     border-color: #0d6efd;
+}
+
+/* -------------------------------------- 
+    HOME STYLE 
+-------------------------------------- */
+
+/* ------- General Page Styles ------- */
+
+#home-page {
+    padding: 30px;
+    display: flex;
+    gap: 32px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background: url(../img/gradient-bg.png);
+    background-size: cover;
+    background-position: center;
+    padding: 16px;
+}
+
+.logout {
+    padding: 0;
+    box-shadow: none;
+    max-width: 68px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--color-white);
+    border-radius: 100%;
+    transition: all ease 0.3s;
+}
+
+.logout:hover {
+    border-color: rgba(220, 53, 69, 0.5);
+}
+
+.logout div {
+    background-color: transparent;
+    max-width: 54px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border: 1px solid var(--color-white);
+    border-radius: 100%;
+}
+
+.logout:hover div {
+    border-color: rgba(220, 53, 69, 0.8);
+}
+
+.logout div i {
+    color: var(--color-white);
+    font-size: 35px;
+    line-height: 0;
+}
+
+.logout:hover div i {
+    color: rgba(220, 53, 69, 1);
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 0;
+}
+
+.nav-link i {
+    color: var(--color-dark-green);
+    font-size: 25px;
+    transition: all ease 0.3s;
+}
+
+.nav-link i:hover {
+    color: var(--color-white);
+}
+
+.active i {
+    color: var(--color-white);
+}
+
+#home-page main {
+    width: 100%;
+    height: 100%;
+}
+
+#home-page main section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 29px;
+}
+
+.close-aside {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    align-items: center;
+    padding-left: 150px;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    color: var(--color-white);
+    transition: all ease 0.3s;
+}
+
+.close-aside:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.close-aside i {
+    font-size: 30px;
+}
+
+.block {
+    display: block;
+}
+
+.flex {
+    display: flex;
+}
+
+@media (max-width: 576px) {
+    aside {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        border-radius: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .close-aside {
+        display: none;
+    }
+}
+
+/* ------- Transactions Page Styles ------- */
+
+#transactions {
+    overflow: hidden;
+    border-radius: 0 0 16px 16px;
+}
+
+#transactions header {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+#transactions .open-aside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 40px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 8px;
+}
+
+#transactions .open-aside i {
+    line-height: 0;
+    font-size: 25px;
+}
+
+#transactions .open-aside:hover {
+    background-color: rgba(217, 217, 217, 0.3);
+}
+
+#transactions .header-actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 14px;
+}
+
+#transactions header h1 {
+    margin: 0;
+    min-width: max-content;
+    font-size: 20px;
+}
+
+/* ------- Transactions Search Input And Plus Styles ------- */
+
+#transactions .search-input {
+    max-width: 304px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--color-green);
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+#transactions .search-input span {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    padding: 0;
+}
+
+#transactions .search-input span i {
+    color: #008171;
+    transform: rotateY(180deg);
+}
+
+#transactions .search-input .form-control {
+    height: 100%;
+    padding: 0;
+    background-color: transparent !important;
+    color: var(--color-green) !important;
+    font-size: var(--font-size-2);
+}
+
+#transactions .search-input .form-control:focus {
+    box-shadow: none;
+}
+
+#transactions .search-input .form-control::placeholder {
+    color: var(--color-green);
+}
+
+#transactions header #create-transaction-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 65px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    color: var(--color-white);
+    background-color: var(--color-green);
+}
+
+#transactions header #create-transaction-btn:hover {
+    background-color: var(--color-dark-green);
+}
+
+#transactions header #create-transaction-btn i {
+    font-size: 30px;
+}
+
+/* ------- Transactions Main Content Styles ------- */
+
+#transactions .main-content {
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(217, 217, 217, 0.2);
+}
+
+#transactions .balance {
+    width: max-content;
+    margin: 0 auto;
+    padding: 30px;
+    padding-bottom: 0;
+}
+
+#transactions .balance h1 {
+    font-size: var(--font-size-3);
+}
+
+#transactions .balance h1 sub {
+    font-size: 20px;
+}
+
+#transactions .balance h1 sup {
+    font-size: 20px;
+}
+
+#transactions .balance h2 {
+    font-size: var(--font-size-2);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    --bs-table-striped-bg: rgba(217, 217, 217, 0.2);
+}
+
+.table-striped > tbody > tr:last-child {
+    border-bottom-color: rgba(217, 217, 217, 0.2);
+}
+
+.table i {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.exit i {
+    color: var(--color-white);
+    background-color: rgba(220, 53, 69, 0.5);
+}
+
+.entry i {
+    color: var(--color-white);
+    background-color: rgba(25, 135, 84, 0.5);
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table-container {
+    height: 100%;
+    flex-grow: 1;
+    overflow: auto;
+    border-radius: 8px;
+    background-color: white;
+    padding-bottom: 60px;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-gray);
+    border-radius: 20px;
+}
+
+.table tbody {
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    cursor: pointer;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.table thead button {
+    padding: 0;
+    border-radius: 100%;
+    background-color: rgba(217, 217, 217, 0.5);
+}
+
+.table thead button:hover {
+    background-color: rgba(217, 217, 217, 0.7);
+}
+
+@media (max-width: 576px) {
+    .table {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .table {
+        font-size: 12px;
+    }
 }
