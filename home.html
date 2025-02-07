@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,7 +60,12 @@
                             />
                         </div>
 
-                        <button id="create-transaction-btn" class="btn">
+                        <button
+                            id="create-transaction-btn"
+                            class="btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#create-modal"
+                        >
                             <i class="bi bi-plus"></i>
                         </button>
                     </div>
@@ -90,128 +95,45 @@
                                     <th scope="col">Valor</th>
                                     <th scope="col">Método</th>
                                     <th scope="col">Categoria</th>
+                                    <th scope="col" hidden>type</th>
                                 </tr>
                             </thead>
                             <tbody id="transaction-table-body">
-                                <tr class="entry">
+                                <tr id="1" class="entry">
                                     <th scope="row">
                                         <i class="bi bi-cash"></i>
                                     </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>111,31</td>
+                                    <td>pix</td>
+                                    <td>comida</td>
+                                    <td hidden>entrada</td>
                                 </tr>
-                                <tr class="exit">
+                                <tr id="2" class="exit">
                                     <th scope="row exit">
                                         <i class="bi bi-cash"></i>
                                     </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td>222,31</td>
+                                    <td>pix</td>
+                                    <td>lazer</td>
+                                    <td hidden>saida</td>
                                 </tr>
-                                <tr class="entry">
+                                <tr id="3" class="entry">
                                     <th scope="row">
                                         <i class="bi bi-cash"></i>
                                     </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton Thornton</td>
-                                    <td>@fat</td>
+                                    <td>333,31</td>
+                                    <td>pix</td>
+                                    <td>contas</td>
+                                    <td hidden>entrada</td>
                                 </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr class="exit">
+                                <tr id="4" class="exit">
                                     <th scope="row exit">
                                         <i class="bi bi-cash"></i>
                                     </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr class="exit">
-                                    <th scope="row exit">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr class="exit">
-                                    <th scope="row exit">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr class="exit">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr class="entry">
-                                    <th scope="row">
-                                        <i class="bi bi-cash"></i>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton Thornton</td>
-                                    <td>@fat</td>
+                                    <td>444,31</td>
+                                    <td>pix</td>
+                                    <td>loteria</td>
+                                    <td hidden>saida</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,6 +146,238 @@
                 style="background-color: red"
             ></section>
         </main>
+
+        <div
+            class="modal fade"
+            id="create-modal"
+            tabindex="-1"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Criar Transação
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-new-transaction">
+                            <div class="mb-3">
+                                <label
+                                    for="new-transaction-value"
+                                    class="form-label"
+                                    >Valor</label
+                                >
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input
+                                        type="text"
+                                        id="new-transaction-value"
+                                        class="form-control"
+                                        placeholder="0,00"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label
+                                    for="new-transaction-type"
+                                    class="form-label"
+                                    >Tipo</label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="new-transaction-type"
+                                >
+                                    <option value="entrada">Entrada</option>
+                                    <option value="saida">Saída</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label
+                                    for="new-transaction-method"
+                                    class="form-label"
+                                    >Método de Pagamento</label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="new-transaction-method"
+                                >
+                                    <option value="pix">Pix</option>
+                                    <option value="credito">Crédito</option>
+                                    <option value="debito">Débito</option>
+                                    <option value="boleto">
+                                        Boleto Bancário
+                                    </option>
+                                    <option value="transferencia-bancaria">
+                                        Transferência Bancária
+                                    </option>
+                                    <option value="carteira-digital">
+                                        Carteira Digital
+                                    </option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="cheque">Cheque</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label
+                                    for="new-transaction-category"
+                                    class="form-label"
+                                    >Categoria</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="new-transaction-category"
+                                    required
+                                />
+                            </div>
+
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    id="cancel-create-transaction"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Criar Agora
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            id="edit-modal"
+            tabindex="-1"
+            aria-labelledby="editTransactionLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTransactionLabel">
+                            Editar Transação
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-transaction-form">
+                            <div class="mb-3">
+                                <label
+                                    for="edit-transaction-value"
+                                    class="form-label"
+                                    >Valor</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="edit-transaction-value"
+                                />
+                            </div>
+
+                            <div class="mb-3">
+                                <label
+                                    for="edit-transaction-type"
+                                    class="form-label"
+                                    >Tipo</label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="edit-transaction-type"
+                                >
+                                    <option value="entrada">Entrada</option>
+                                    <option value="saida">Saída</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label
+                                    for="edit-transaction-method"
+                                    class="form-label"
+                                    >Método de Pagamento</label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="edit-transaction-method"
+                                >
+                                    <option value="pix">Pix</option>
+                                    <option value="credito">Crédito</option>
+                                    <option value="debito">Débito</option>
+                                    <option value="boleto">
+                                        Boleto Bancário
+                                    </option>
+                                    <option value="transferencia-bancaria">
+                                        Transferência Bancária
+                                    </option>
+                                    <option value="carteira-digital">
+                                        Carteira Digital
+                                    </option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="cheque">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label
+                                    for="edit-transaction-category"
+                                    class="form-label"
+                                    >Categoria</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="edit-transaction-category"
+                                />
+                            </div>
+
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    id="save-update-button"
+                                    disabled
+                                >
+                                    Atualizar
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    id="exclude-transaction-button"
+                                >
+                                    Excluir
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

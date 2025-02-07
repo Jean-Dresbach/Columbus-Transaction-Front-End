@@ -323,7 +323,7 @@ form {
 
 /* ------- Input and Placeholder ------- */
 
-.form-control {
+#login-page #signup-page .form-control {
     font-size: var(--font-size-2);
     color: var(--color-white) !important;
     background-color: rgba(217, 217, 217, 0.3) !important;
@@ -332,35 +332,29 @@ form {
     padding: 15px 20px;
 }
 
-.form-control::placeholder {
+#login-page #signup-page .form-control::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* ------- Checkbox ------- */
-
-.form-check-input {
+#login-page #signup-page .form-check-input {
     background-color: transparent;
 }
 
-.form-check-label {
+#login-page #signup-page .form-check-label {
     font-size: var(--font-size-2);
 }
 
-/* ------- Links ------- */
-
-.forgot-password {
+#login-page #signup-page .forgot-password {
     font-size: var(--font-size-1);
     color: var(--color-white);
 }
 
-/* ------- Buttons ------- */
-
-.btn-wrapper {
+#login-page #signup-page .btn-wrapper {
     display: flex;
     gap: 20px;
 }
 
-.btn-wrapper a {
+#login-page #signup-page .btn-wrapper a {
     font-size: var(--font-size-2);
     height: 37px;
     width: 100%;
@@ -667,6 +661,7 @@ aside {
 #transactions .search-input .form-control {
     height: 100%;
     padding: 0;
+    border: none;
     background-color: transparent !important;
     color: var(--color-green) !important;
     font-size: var(--font-size-2);
@@ -808,6 +803,18 @@ aside {
 
 .table thead button:hover {
     background-color: rgba(217, 217, 217, 0.7);
+}
+
+#form-new-transaction {
+    max-width: none;
+}
+
+#form-new-transaction .form-control {
+    color: var(--color-dark-gray);
+}
+
+#form-new-transaction .form-control::placeholder {
+    color: var(--color-dark-gray);
 }
 
 @media (max-width: 576px) {
