@@ -1,5 +1,3 @@
-// import { fetchTransactions } from "../services/api"
-
 document.addEventListener("DOMContentLoaded", () => {
     const pages = document.querySelectorAll(".page")
     const navLinks = document.querySelectorAll(".nav-link")
