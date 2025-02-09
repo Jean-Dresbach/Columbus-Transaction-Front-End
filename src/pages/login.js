@@ -69,7 +69,7 @@ document
             localStorage.setItem("user", JSON.stringify(response.data))
 
             const toastBodyElement = document.querySelector(".toast-body")
-            toastBodyElement.innerText = response.message
+            toastBodyElement.innerText = "Usuário logado com sucesso"
 
             const toastLiveExample = document.getElementById("liveToast")
             const toastInstance =

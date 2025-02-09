@@ -1,4 +1,3 @@
-// transactions.js
 import { formatToCurrency } from "./format.js"
 
 export const populateTable = (
@@ -69,4 +68,8 @@ export const updateBalance = (data, balanceElement) => {
     const formattedDecimal = decimalPart.toString().padStart(2, "0")
 
     balanceElement.innerHTML = `<sup>R$</sup>${formattedInteger}<sub>,${formattedDecimal}</sub>`
+}
+
+export const updateUserTitleElement = name => {
+    document.getElementById("user-name-title-element").innerText = name
 }

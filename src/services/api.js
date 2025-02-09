@@ -76,7 +76,7 @@ export const fetchTransactions = async () => {
         throw new Error(response.message)
     }
 
-    return response.data
+    return response.data.data
 }
 
 export const createTransaction = async (value, type, method, category) => {

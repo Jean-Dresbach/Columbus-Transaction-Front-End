@@ -12,3 +12,32 @@ export const showEditModal = transactionData => {
     const editModal = new bootstrap.Modal(editModalElement)
     editModal.show()
 }
+
+export const showConfirmationModal = async (action, message) => {
+    const confirmButton = document.getElementById("confirmButton")
+    const confirmationText = document.getElementById("confirmationText")
+    const confirmationModal = new bootstrap.Modal(
+        document.getElementById("confirmationModal")
+    )
+
+    return new Promise((resolve, reject) => {
+        confirmationText.textContent = `Tem certeza que ${message}`
+
+        confirmButton.onclick = () => {
+            resolve(true)
+            confirmationModal.hide()
+        }
+
+        document.querySelector("#confirmationModal .btn-secondary").onclick =
+            () => {
+                resolve(false)
+                confirmationModal.hide()
+            }
+
+        confirmationModal.show()
+    }).then(confirmed => {
+        if (confirmed) {
+            action()
+        }
+    })
+}

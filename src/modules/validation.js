@@ -1,4 +1,3 @@
-// src/modules/validation.js
 export function validateRequired(field, errorElement, message) {
     if (field.value.trim() === "") {
         errorElement.innerText = message
