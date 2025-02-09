@@ -13,3 +13,9 @@ export const formatCurrencyInput = inputElement => {
         inputElement.value = value
     })
 }
+
+export const unformatCurrency = formattedValue => {
+    let value = formattedValue.replace(/[^\d,.-]/g, "")
+    value = value.replace(",", ".")
+    return parseFloat(value)
+}

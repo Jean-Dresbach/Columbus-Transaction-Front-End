@@ -1,11 +1,11 @@
-import { formatToCurrency } from "./format.js"
+import { formatToCurrency, unformatCurrency } from "./format.js"
 
 export const populateTable = (
     data,
     filterState,
     tableBody,
     typeFilter,
-    updateBalance
+    balanceElement
 ) => {
     // Limpa o conteúdo atual da tabela
     tableBody.innerHTML = ""
@@ -13,7 +13,7 @@ export const populateTable = (
     // Filtra os dados com base no filterState
     const filteredData = data.filter(item => {
         if (filterState === 1) return item.type === "entrada"
-        if (filterState === 2) return item.type === "saida"
+        if (filterState === 2) return item.type === "saída"
         return true
     })
 
@@ -22,12 +22,16 @@ export const populateTable = (
         const entryExitClass = item.type === "entrada" ? "entry" : "exit"
         row.classList.add(entryExitClass)
 
+        row.setAttribute("data-bs-target", "#edit-modal")
+        row.setAttribute("data-bs-toggle", "modal")
+
         row.innerHTML = `
-      <th scope="row"><i class="bi bi-cash"></i></th>
-      <td>${formatToCurrency(item.value)}</td>
-      <td>${item.method}</td>
-      <td>${item.category}</td>
-    `
+            <th id="${item.id}" scope="row"><i class="bi bi-cash"></i></th>
+            <td>${formatToCurrency(item.value)}</td>
+            <td>${item.method}</td>
+            <td>${item.category}</td>
+            <td hidden>${item.type}</td>
+        `
 
         tableBody.appendChild(row)
     })
@@ -46,7 +50,7 @@ export const populateTable = (
         typeFilter.classList.add("exit")
     }
 
-    updateBalance(data)
+    updateBalance(data, balanceElement)
 }
 
 export const updateBalance = (data, balanceElement) => {
@@ -56,9 +60,9 @@ export const updateBalance = (data, balanceElement) => {
     }
     const totalBalance = data.reduce((acc, transaction) => {
         return transaction.type === "entrada"
-            ? acc + transaction.value
+            ? acc + Number(transaction.value)
             : transaction.type === "saida"
-            ? acc - transaction.value
+            ? acc - Number(transaction.value)
             : acc
     }, 0)
 
@@ -72,4 +76,30 @@ export const updateBalance = (data, balanceElement) => {
 
 export const updateUserTitleElement = name => {
     document.getElementById("user-name-title-element").innerText = name
+}
+
+export const updateTableBasedOnFilters = (searchInput, transactions) => {
+    const searchQuery = searchInput.value.trim().toLowerCase()
+
+    if (!searchQuery) return transactions
+
+    let filteredTransactions = []
+
+    if (searchQuery !== "") {
+        filteredTransactions = transactions.filter(item => {
+            const valueMatch = item.value
+                .toString()
+                .toLowerCase()
+                .includes(searchQuery)
+            const methodMatch = item.method.toLowerCase().includes(searchQuery)
+            const categoryMatch = item.category
+                .toLowerCase()
+                .includes(searchQuery)
+
+            return valueMatch || methodMatch || categoryMatch
+        })
+    }
+
+    // Atualiza a tabela com as transações filtradas
+    return filteredTransactions
 }
