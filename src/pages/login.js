@@ -1,13 +1,15 @@
-// Event listener para limpar os erros assim que o usuário digitar
-document.getElementById("email").addEventListener("input", function () {
-    this.setCustomValidity("")
-    document.getElementById("error-email").innerText = ""
-})
+// src/pages/login.js
+import { login } from "../services/api.js"
+import { clearValidationOnInput } from "../modules/formHelpers.js"
+import {
+    validateRequired,
+    validateEmailFormat,
+    validateMinLength,
+} from "../modules/validation.js"
 
-document.getElementById("password").addEventListener("input", function () {
-    this.setCustomValidity("")
-    document.getElementById("error-password").innerText = ""
-})
+// Registra os "clear" para os inputs
+clearValidationOnInput("email", "error-email")
+clearValidationOnInput("password", "error-password")
 
 document
     .getElementById("login-form")
@@ -21,30 +23,38 @@ document
         const emailError = document.getElementById("error-email")
         const passwordError = document.getElementById("error-password")
 
+        // Limpa mensagens e validade personalizada
         emailField.setCustomValidity("")
         passwordField.setCustomValidity("")
         emailError.innerText = ""
         passwordError.innerText = ""
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        // Valida o e-mail: campo obrigatório e formato
+        let isValid = true
+        isValid =
+            validateRequired(
+                emailField,
+                emailError,
+                "Por favor, preencha o campo de e-mail."
+            ) && isValid
+        isValid = validateEmailFormat(emailField, emailError) && isValid
 
-        if (emailField.value.trim() === "") {
-            emailError.innerText = "Por favor, preencha o campo de e-mail."
-            emailField.setCustomValidity("Campo de e-mail vazio")
-        } else if (!emailRegex.test(emailField.value.trim())) {
-            emailError.innerText = "Por favor, insira um e-mail válido."
-            emailField.setCustomValidity("E-mail inválido")
-        }
+        // Valida a senha: campo obrigatório e mínimo 6 caracteres
+        isValid =
+            validateRequired(
+                passwordField,
+                passwordError,
+                "Por favor, preencha o campo de senha."
+            ) && isValid
+        isValid =
+            validateMinLength(
+                passwordField,
+                passwordError,
+                6,
+                "A senha deve ter no mínimo 6 caracteres."
+            ) && isValid
 
-        if (passwordField.value === "") {
-            passwordError.innerText = "Por favor, preencha o campo de senha."
-            passwordField.setCustomValidity("Campo de senha vazio")
-        } else if (passwordField.value.length < 6) {
-            passwordError.innerText = "A senha deve ter no mínimo 6 caracteres."
-            passwordField.setCustomValidity("Senha com menos de 6 caracteres")
-        }
-
-        if (!form.checkValidity()) {
+        if (!form.checkValidity() || !isValid) {
             form.classList.add("was-validated")
             return
         }
@@ -55,12 +65,11 @@ document
 
         try {
             const response = await login(email, password, stayLoggedIn)
-
             localStorage.setItem("token", response.token)
             localStorage.setItem("user", JSON.stringify(response.data))
 
-            const tostBodyElement = document.querySelector(".toast-body")
-            tostBodyElement.innerText = response.message
+            const toastBodyElement = document.querySelector(".toast-body")
+            toastBodyElement.innerText = response.message
 
             const toastLiveExample = document.getElementById("liveToast")
             const toastInstance =
@@ -73,10 +82,8 @@ document
         } catch (error) {
             if (error.response?.data?.code === 401) {
                 const message = error.response.data.message
-
                 emailError.innerText = message
                 passwordError.innerText = message
-
                 emailField.setCustomValidity(message)
                 passwordField.setCustomValidity(message)
             } else {

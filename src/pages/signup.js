@@ -1,20 +1,17 @@
-document.getElementById("name").addEventListener("input", function () {
-    this.setCustomValidity("")
-})
-document.getElementById("email").addEventListener("input", function () {
-    this.setCustomValidity("")
-    document.getElementById("error-email").innerText = ""
-})
-document.getElementById("password").addEventListener("input", function () {
-    this.setCustomValidity("")
-    document.getElementById("error-password").innerText = ""
-})
-document
-    .getElementById("confirm-password")
-    .addEventListener("input", function () {
-        this.setCustomValidity("")
-        document.getElementById("error-confirm-password").innerText = ""
-    })
+// src/pages/signup.js
+import { signup } from "../services/api.js" // Certifique-se de que esta função esteja implementada
+import { clearValidationOnInput } from "../modules/formHelpers.js"
+import {
+    validateRequired,
+    validateEmailFormat,
+    validateMinLength,
+} from "../modules/validation.js"
+
+// Registra "clear" para os campos
+clearValidationOnInput("name", "error-name")
+clearValidationOnInput("email", "error-email")
+clearValidationOnInput("password", "error-password")
+clearValidationOnInput("confirm-password", "error-confirm-password")
 
 document
     .getElementById("signup-form")
@@ -23,7 +20,6 @@ document
         event.stopPropagation()
 
         const form = this
-
         const nameElement = document.getElementById("name")
         const emailElement = document.getElementById("email")
         const passwordElement = document.getElementById("password")
@@ -37,6 +33,7 @@ document
             "error-confirm-password"
         )
 
+        // Limpa mensagens e validade personalizada
         nameElement.setCustomValidity("")
         emailElement.setCustomValidity("")
         passwordElement.setCustomValidity("")
@@ -46,41 +43,53 @@ document
         passwordError.innerText = ""
         confirmPasswordError.innerText = ""
 
-        if (nameElement.value.trim() === "") {
-            nameError.innerText = "Por favor, preencha o campo de nome."
-            nameElement.setCustomValidity(
+        // Validação do campo nome
+        let isValid = true
+        isValid =
+            validateRequired(
+                nameElement,
+                nameError,
                 "Por favor, preencha o campo de nome."
-            )
-        }
+            ) && isValid
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (emailElement.value.trim() === "") {
-            emailError.innerText = "Por favor, preencha o campo de e-mail."
-            emailElement.setCustomValidity("Campo de e-mail vazio")
-        } else if (!emailRegex.test(emailElement.value.trim())) {
-            emailError.innerText = "Por favor, insira um e-mail válido."
-            emailElement.setCustomValidity("E-mail inválido")
-        }
+        // Validação do e-mail
+        isValid =
+            validateRequired(
+                emailElement,
+                emailError,
+                "Por favor, preencha o campo de e-mail."
+            ) && isValid
+        isValid = validateEmailFormat(emailElement, emailError) && isValid
 
-        if (passwordElement.value === "") {
-            passwordError.innerText = "Por favor, preencha o campo de senha."
-            passwordElement.setCustomValidity("Campo de senha vazio")
-        } else if (passwordElement.value.length < 6) {
-            passwordError.innerText = "A senha deve ter no mínimo 6 caracteres."
-            passwordElement.setCustomValidity("Senha com menos de 6 caracteres")
-        }
+        // Validação da senha
+        isValid =
+            validateRequired(
+                passwordElement,
+                passwordError,
+                "Por favor, preencha o campo de senha."
+            ) && isValid
+        isValid =
+            validateMinLength(
+                passwordElement,
+                passwordError,
+                6,
+                "A senha deve ter no mínimo 6 caracteres."
+            ) && isValid
 
-        if (confirmPasswordElement.value === "") {
+        // Validação da confirmação de senha
+        if (confirmPasswordElement.value.trim() === "") {
             confirmPasswordError.innerText = "Por favor, confirme sua senha."
             confirmPasswordElement.setCustomValidity(
                 "Campo de confirmação de senha vazio"
             )
+            isValid = false
         } else if (passwordElement.value !== confirmPasswordElement.value) {
             confirmPasswordError.innerText = "As senhas não coincidem."
             confirmPasswordElement.setCustomValidity("As senhas não coincidem.")
+            isValid = false
         }
 
-        if (!form.checkValidity()) {
+        if (!form.checkValidity() || !isValid) {
             form.classList.add("was-validated")
             return
         }
@@ -92,8 +101,8 @@ document
                 passwordElement.value
             )
 
-            const tostBodyElement = document.querySelector(".toast-body")
-            tostBodyElement.innerText = response.message
+            const toastBodyElement = document.querySelector(".toast-body")
+            toastBodyElement.innerText = response.message
 
             const toastLiveExample = document.getElementById("liveToast")
             const toastInstance =
@@ -110,9 +119,6 @@ document
             } else {
                 console.error("Erro ao cadastrar usuário: ", error)
             }
-
             form.classList.add("was-validated")
         }
-
-        form.classList.add("was-validated")
     })

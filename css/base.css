@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/centurygothic.ttf") format("truetype");
+    font-weight: 400; /* Regular */
+}
+@font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/centurygothic_bold.ttf") format("truetype");
+    font-weight: 700; /* Bold */
+}
+
+:root {
+    --color-white: #fff;
+    --color-green: #008171;
+    --color-dark-green: #004e44;
+    --color-pink: #ffe5ff;
+    --color-red: #810000;
+    --color-dark-gray: #444;
+
+    --font-size-3: 32.64px;
+    --font-size-2: 13.53px;
+    --font-size-1: 11.14px;
+}
+
+/* Reset e estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Century Gothic", sans-serif;
+    overflow: hidden;
+    color: var(--color-dark-gray);
+}

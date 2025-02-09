@@ -15,7 +15,7 @@ api.interceptors.request.use(config => {
     return config
 })
 
-const login = async (email, password, stayLoggedIn) => {
+export const login = async (email, password, stayLoggedIn) => {
     const response = await api.post("/users/login", {
         email,
         password,
@@ -24,7 +24,7 @@ const login = async (email, password, stayLoggedIn) => {
     return response.data
 }
 
-const signup = async (name, email, password) => {
+export const signup = async (name, email, password) => {
     console.log(name, email, password)
 
     const response = await api.post("/users/signup", { name, email, password })
@@ -36,44 +36,80 @@ const signup = async (name, email, password) => {
     return response.data
 }
 
-const fetchTransactions = async () => {
-    try {
-        const response = await api.get("/transactions")
-        return response.data
-    } catch (error) {
-        console.error("Erro ao buscar as transações:", error)
-        return []
+export const updateUser = async (name, email, password) => {
+    const response = await api.put("/users", { name, email, password })
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
     }
+
+    return response.data
 }
 
-const createTransaction = async transaction => {
-    try {
-        const response = await api.post("/transactions", transaction)
-        return response.data
-    } catch (error) {
-        console.error("Erro ao criar transação:", error)
-        throw error
+export const updatePassword = async (oldPassword, newPassword) => {
+    const response = await api.put("/users/update-password", {
+        oldPassword,
+        newPassword,
+    })
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
     }
+
+    return response.data
 }
 
-const updateTransaction = async (transactionId, updatedTransaction) => {
-    try {
-        const response = await api.put(
-            `/transactions/${transactionId}`,
-            updatedTransaction
-        )
-        return response.data
-    } catch (error) {
-        console.error("Erro ao atualizar transação:", error)
-        throw error
+export const deleteUser = async () => {
+    const response = await api.delete("/users")
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
     }
+
+    return response.data
 }
 
-const deleteTransaction = async transactionId => {
-    try {
-        await api.delete(`/transactions/${transactionId}`)
-    } catch (error) {
-        console.error("Erro ao excluir transação:", error)
-        throw error
+export const fetchTransactions = async () => {
+    const response = await api.get("/transactions")
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
     }
+
+    return response.data
+}
+
+export const createTransaction = async (value, type, method, category) => {
+    const response = await api.post("/transactions", {
+        value,
+        type,
+        method,
+        category,
+    })
+
+    if (response.data.code != 201) {
+        throw new Error(response.message)
+    }
+
+    return response.data
+}
+
+export const updateTransaction = async (transactionId, updates) => {
+    const response = await api.put(`/transactions/${transactionId}`, updates)
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
+    }
+
+    return response.data
+}
+
+export const deleteTransaction = async transactionId => {
+    const response = await api.delete(`/transactions/${transactionId}`)
+
+    if (response.data.code != 200) {
+        throw new Error(response.message)
+    }
+
+    return response.data
 }

@@ -1,0 +1,156 @@
+/* ------- Estilos Gerais ------- */
+
+body {
+    display: flex;
+    gap: 32px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+section {
+    height: 100%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    padding-left: 0;
+    gap: 29px;
+}
+
+/* ------- Estilos Aside ------- */
+
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100px;
+    width: 100%;
+    border-radius: 50px;
+    background: url(../../img/gradient-bg.png);
+    background-size: cover;
+    background-position: center;
+    padding: 16px;
+    margin: 30px;
+    margin-right: 0;
+}
+
+.logout {
+    padding: 0;
+    box-shadow: none;
+    max-width: 68px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--color-white);
+    border-radius: 100%;
+    transition: all ease 0.3s;
+}
+
+.logout:hover {
+    border-color: rgba(220, 53, 69, 0.5);
+}
+
+.logout div {
+    background-color: transparent;
+    max-width: 54px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border: 1px solid var(--color-white);
+    border-radius: 100%;
+}
+
+.logout:hover div {
+    border-color: rgba(220, 53, 69, 0.8);
+}
+
+.logout div i {
+    color: var(--color-white);
+    font-size: 35px;
+    line-height: 0;
+}
+
+.logout:hover div i {
+    color: rgba(220, 53, 69, 1);
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 0;
+}
+
+.nav-link i {
+    color: var(--color-dark-green);
+    font-size: 25px;
+    transition: all ease 0.3s;
+}
+
+.nav-link i:hover {
+    color: var(--color-white);
+}
+
+.active i {
+    color: var(--color-white);
+}
+
+.close-aside {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    align-items: center;
+    padding-left: 150px;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    color: var(--color-white);
+    transition: all ease 0.3s;
+}
+
+.close-aside:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.close-aside i {
+    font-size: 30px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.block {
+    display: block;
+}
+
+.flex {
+    display: flex;
+}
+
+/* ------- Estilos para responsividade ------- */
+
+@media (max-width: 576px) {
+    aside {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        border-radius: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .close-aside {
+        display: none;
+    }
+}
