@@ -1,57 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login</title>
+        <title>Columbus Transaction - Login</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="./css/base.css" />
+        <link rel="stylesheet" href="./css/auth.css" />
     </head>
     <body id="login-page">
+        <img
+            src="./img/gradient-bg.png"
+            class="banner-img"
+            alt="Background Verde"
+        />
+
         <div class="form-container">
-            <form id="login-form">
-                <legend>Bem vindo!</legend>
-                <h2>LOGIN</h2>
-                <div class="mb-3">
-                    <input
-                        type="email"
-                        id="email"
-                        class="form-control"
-                        placeholder="E-mail"
-                    />
+            <div class="animated-bg-container">
+                <img
+                    src="./img/Gradients-Lab-1.png"
+                    class="pink-circle"
+                    alt="Circulo Rosa"
+                />
+                <img
+                    src="./img/Gradients-Lab-2.png"
+                    class="green-circle"
+                    alt="Circulo Verde"
+                />
+                <img
+                    src="./img/Gradients-Lab-4.png"
+                    class="purple-circle"
+                    alt="Circulo roxo"
+                />
+                <img
+                    src="./img/Gradients-Lab-5.png"
+                    class="blue-circle"
+                    alt="Circulo azul"
+                />
+            </div>
+
+            <form id="login-form" novalidate>
+                <div class="form-header">
+                    <legend>Bem vindo!</legend>
+                    <h2>LOGIN</h2>
                 </div>
-                <div class="mb-3">
-                    <input
-                        type="password"
-                        id="password"
-                        class="form-control"
-                        placeholder="Senha"
-                    />
-                </div>
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="mantain-connection"
-                        />
-                        <label
-                            class="form-check-label"
-                            for="mantain-connection"
+
+                <div class="form-body">
+                    <div class="form-body-main">
+                        <div>
+                            <input
+                                type="email"
+                                id="email"
+                                class="form-control"
+                                placeholder="E-mail"
+                                autocomplete="off"
+                                required
+                            />
+                            <div id="error-email" class="invalid-feedback">
+                                Por favor, insira um e-mail válido.
+                            </div>
+                        </div>
+
+                        <div>
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                placeholder="Senha"
+                                autocomplete="off"
+                                minlength="6"
+                                required
+                            />
+                            <div id="error-password" class="invalid-feedback">
+                                Preencha o campo de senha.
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="stay-logged-in"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="stay-logged-in"
+                            >
+                                Manter conectado
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-body-footer">
+                        <a href="#" class="forgot-password"
+                            >Esqueci minha senha</a
                         >
-                            Manter conectado
-                        </label>
+
+                        <div class="btn-wrapper">
+                            <a href="signup.html" class="btn btn-outline-light"
+                                >Criar conta</a
+                            >
+                            <button type="submit" class="btn btn-light">
+                                Logar
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <a href="#">Esqueci minha senha</a>
-
-                <a href="#" class="btn btn-outline-light">Criar conta</a>
-                <button type="submit" class="btn btn-light">Logar</button>
             </form>
         </div>
+
+        <div class="toast-container position-fixed top-0 start-0 p-3">
+            <div
+                id="liveToast"
+                class="toast bg-success"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="toast-body"></div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" src="./src/pages/login.js"></script>
     </body>
 </html>

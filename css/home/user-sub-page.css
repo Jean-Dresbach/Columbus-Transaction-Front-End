@@ -1,0 +1,24 @@
+#users {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+#users .main-content {
+    flex: 1 1 1px;
+    overflow: auto;
+}
+
+#users .open-aside {
+    display: none;
+}
+
+@media (max-width: 576px) {
+    #users {
+        padding: 30px;
+    }
+
+    #users .open-aside {
+        display: block;
+    }
+}
