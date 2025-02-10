@@ -2,7 +2,6 @@
 
 body {
     display: flex;
-    gap: 32px;
 }
 
 main {
@@ -15,8 +14,7 @@ section {
     max-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 30px;
-    padding-left: 0;
+    padding: 30px 0;
     gap: 29px;
 }
 
@@ -161,7 +159,7 @@ aside {
 
 /* ------- Estilos para responsividade ------- */
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     aside {
         display: none;
         position: absolute;

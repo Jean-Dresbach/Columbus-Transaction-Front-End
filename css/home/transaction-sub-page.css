@@ -202,8 +202,10 @@
 #transaction-table {
     flex: 1 1 1px;
     display: flex;
+    overflow-x: auto;
     flex-direction: column;
-    border-collapse: collapse; /* Opcional, para melhor aparência */
+    border-collapse: collapse;
+    background-color: rgba(217, 217, 217, 0.2);
 }
 
 #transaction-table thead {
@@ -232,11 +234,16 @@
     }
 
     #transactions {
-        padding: 30px;
+        padding: 0;
+    }
+
+    #transactions header {
+        margin: 30px;
+        margin-bottom: 0;
     }
 }
 
-@media (min-width: 577px) {
+@media (min-width: 769px) {
     #transactions .open-aside {
         display: none;
     }

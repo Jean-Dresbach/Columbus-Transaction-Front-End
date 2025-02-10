@@ -18,484 +18,503 @@
         <link rel="stylesheet" href="./css/home/user-sub-page.css" />
     </head>
     <body id="home-page">
-        <aside>
-            <button
-                id="logout-btn"
-                class="logout btn"
-                data-bs-target="#confirmationModal"
-                data-bs-toggle="modal"
-            >
-                <div>
-                    <i class="bi bi-person-fill-x"></i>
-                </div>
+        <div class="container d-flex p-0" style="gap: 32px">
+            <aside>
+                <button
+                    id="logout-btn"
+                    class="logout btn"
+                    data-bs-target="#confirmationModal"
+                    data-bs-toggle="modal"
+                >
+                    <div>
+                        <i class="bi bi-person-fill-x"></i>
+                    </div>
+                </button>
+
+                <nav
+                    class="nav h-100 d-flex align-items-center flex-column gap-4 pt-4"
+                >
+                    <a href="#transactions" class="nav-link active">
+                        <i class="bi bi-cash-coin"></i>
+                    </a>
+                    <a href="#users" class="nav-link">
+                        <i class="bi bi-person-fill-gear"></i>
+                    </a>
+                </nav>
+            </aside>
+
+            <button class="close-aside">
+                <i class="bi bi-box-arrow-left"></i>
             </button>
 
-            <nav
-                class="nav h-100 d-flex align-items-center flex-column gap-4 pt-4"
-            >
-                <a href="#transactions" class="nav-link active">
-                    <i class="bi bi-cash-coin"></i>
-                </a>
-                <a href="#users" class="nav-link">
-                    <i class="bi bi-person-fill-gear"></i>
-                </a>
-            </nav>
-        </aside>
-
-        <button class="close-aside">
-            <i class="bi bi-box-arrow-left"></i>
-        </button>
-
-        <main>
-            <section id="transactions" class="page">
-                <header>
-                    <button class="open-aside btn">
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <h1 class="user-title-element">{NOME USUÁRIO}</h1>
-
-                    <div class="header-actions">
-                        <div class="input-group search-input">
-                            <span class="input-group-text"
-                                ><i class="bi bi-search"></i
-                            ></span>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="search-input"
-                                placeholder="Pesquisar"
-                            />
-                        </div>
-
-                        <button
-                            id="create-transaction-btn"
-                            class="btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#create-modal"
-                        >
-                            <i class="bi bi-plus"></i>
+            <main>
+                <section id="transactions" class="page">
+                    <header>
+                        <button class="open-aside btn">
+                            <i class="bi bi-list"></i>
                         </button>
-                    </div>
-                </header>
 
-                <div class="main-content">
-                    <div class="balance">
-                        <h2>Saldo</h2>
-                        <h1><sup>R$</sup>0<sub>,00</sub></h1>
-                    </div>
+                        <h1 class="user-title-element d-none d-md-block">
+                            {NOME USUÁRIO}
+                        </h1>
 
-                    <div class="table-container">
-                        <table
-                            id="transaction-table"
-                            class="table table-striped table-hover"
-                        >
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <button
-                                            id="toogle-type-filter"
-                                            class="btn"
-                                        >
-                                            <i class="bi bi-arrow-down-up"></i>
-                                        </button>
-                                    </th>
-                                    <th scope="col">Valor</th>
-                                    <th scope="col">Método</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col" hidden>type</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transaction-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+                        <div class="header-actions">
+                            <div class="input-group search-input">
+                                <span class="input-group-text"
+                                    ><i class="bi bi-search"></i
+                                ></span>
 
-            <section id="users" class="page hidden">
-                <header class="d-flex justify-content-between">
-                    <h2 class="m-0">Gerenciar Conta</h2>
-
-                    <button class="open-aside btn">
-                        <i class="bi bi-list"></i>
-                    </button>
-                </header>
-
-                <div class="main-content">
-                    <div class="border border-primary rounded p-3">
-                        <form id="update-profile-form">
-                            <legend class="mb-3 text-primary">Perfil</legend>
-                            <div class="mb-3">
-                                <label for="update-name" class="form-label"
-                                    >Nome</label
-                                >
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="update-name"
+                                    id="search-input"
+                                    placeholder="Pesquisar"
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label for="update-email" class="form-label"
-                                    >E-mail</label
-                                >
-                                <input
-                                    type="email"
-                                    class="form-control"
-                                    id="update-email"
-                                    required
-                                />
-                            </div>
                             <button
-                                type="submit"
-                                class="btn btn-primary"
-                                id="save-update-profile"
-                                disabled
+                                id="create-transaction-btn"
+                                class="btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#create-modal"
                             >
-                                Atualizar Perfil
+                                <i class="bi bi-plus"></i>
                             </button>
-                        </form>
-                    </div>
-                    <div class="border border-warning rounded p-3 mt-4">
-                        <form id="update-password-form">
-                            <legend class="mb-3 text-warning">Segurança</legend>
-                            <div class="form-floating mb-3">
-                                <input
-                                    type="password"
-                                    placeholder="Senha atual"
-                                    class="form-control"
-                                    id="current-password"
-                                    autocomplete="off"
-                                    minlength="6"
-                                    required
-                                />
-                                <label for="current-password" class="form-label"
-                                    >Senha atual</label
-                                >
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                    type="password"
-                                    class="form-control"
-                                    placeholder="Nova senha"
-                                    id="new-password"
-                                    minlength="6"
-                                    autocomplete="off"
-                                    required
-                                />
-                                <label for="new-password" class="form-label"
-                                    >Nova senha</label
-                                >
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input
-                                    type="password"
-                                    class="form-control"
-                                    id="confirm-password"
-                                    placeholder="Confirmar nova senha"
-                                    minlength="6"
-                                    autocomplete="off"
-                                    required
-                                />
-                                <label for="confirm-password" class="form-label"
-                                    >Confirmar nova senha</label
-                                >
-                            </div>
-                            <button type="submit" class="btn btn-warning">
-                                Atualizar Senha
-                            </button>
-                        </form>
-                    </div>
+                        </div>
+                    </header>
 
-                    <div
-                        class="account-section border border-danger border rounded p-3 mt-4"
-                    >
-                        <h2 class="text-danger mb-3">Conta</h2>
-                        <button
-                            id="delete-account-button"
-                            class="btn btn-danger"
-                        >
-                            Excluir Conta
+                    <div class="main-content">
+                        <div class="balance">
+                            <h2>Saldo</h2>
+                            <h1><sup>R$</sup>0<sub>,00</sub></h1>
+                        </div>
+
+                        <div class="table-container">
+                            <table
+                                id="transaction-table"
+                                class="table table-striped table-hover"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <button
+                                                id="toogle-type-filter"
+                                                class="btn"
+                                            >
+                                                <i
+                                                    class="bi bi-arrow-down-up"
+                                                ></i>
+                                            </button>
+                                        </th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Método</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col" hidden>type</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transaction-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="users" class="page hidden">
+                    <header class="d-flex justify-content-between">
+                        <h2 class="m-0">Gerenciar Conta</h2>
+
+                        <button class="open-aside btn">
+                            <i class="bi bi-list"></i>
                         </button>
-                    </div>
-                </div>
-            </section>
-        </main>
+                    </header>
 
-        <div
-            class="modal fade"
-            id="create-modal"
-            tabindex="-1"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                            Criar Transação
-                        </h1>
-                    </div>
-                    <div class="modal-body">
-                        <form id="form-new-transaction">
-                            <div class="mb-3">
-                                <label
-                                    for="new-transaction-value"
-                                    class="form-label"
-                                    >Valor</label
-                                >
-                                <div class="input-group">
-                                    <span class="input-group-text">R$</span>
+                    <div class="main-content">
+                        <div class="border border-primary rounded p-3">
+                            <form id="update-profile-form">
+                                <legend class="mb-3 text-primary">
+                                    Perfil
+                                </legend>
+                                <div class="mb-3">
+                                    <label for="update-name" class="form-label"
+                                        >Nome</label
+                                    >
                                     <input
                                         type="text"
-                                        id="new-transaction-value"
                                         class="form-control"
-                                        placeholder="0,00"
+                                        id="update-name"
+                                    />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="update-email" class="form-label"
+                                        >E-mail</label
+                                    >
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="update-email"
                                         required
                                     />
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label
-                                    for="new-transaction-type"
-                                    class="form-label"
-                                    >Tipo</label
-                                >
-                                <select
-                                    class="form-select"
-                                    id="new-transaction-type"
-                                >
-                                    <option value="entrada">Entrada</option>
-                                    <option value="saída">Saída</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-                                    for="new-transaction-method"
-                                    class="form-label"
-                                    >Método de Pagamento</label
-                                >
-                                <select
-                                    class="form-select"
-                                    id="new-transaction-method"
-                                >
-                                    <option value="pix">Pix</option>
-                                    <option value="credito">Crédito</option>
-                                    <option value="debito">Débito</option>
-                                    <option value="boleto">
-                                        Boleto Bancário
-                                    </option>
-                                    <option value="transferencia-bancaria">
-                                        Transferência Bancária
-                                    </option>
-                                    <option value="carteira-digital">
-                                        Carteira Digital
-                                    </option>
-                                    <option value="dinheiro">Dinheiro</option>
-                                    <option value="cheque">Cheque</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-                                    for="new-transaction-category"
-                                    class="form-label"
-                                    >Categoria</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="new-transaction-category"
-                                    required
-                                />
-                            </div>
-
-                            <div class="d-flex justify-content-end gap-3">
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    id="cancel-create-transaction"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Cancelar
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    Criar Agora
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div
-            class="modal fade"
-            id="edit-modal"
-            tabindex="-1"
-            aria-labelledby="editTransactionLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editTransactionLabel">
-                            Editar Transação
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <form id="edit-transaction-form">
-                            <div class="mb-3">
-                                <label
-                                    for="edit-transaction-value"
-                                    class="form-label"
-                                    >Valor</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="edit-transaction-value"
-                                />
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-                                    for="edit-transaction-type"
-                                    class="form-label"
-                                    >Tipo</label
-                                >
-                                <select
-                                    class="form-select"
-                                    id="edit-transaction-type"
-                                >
-                                    <option value="entrada">Entrada</option>
-                                    <option value="saída">Saída</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-                                    for="edit-transaction-method"
-                                    class="form-label"
-                                    >Método de Pagamento</label
-                                >
-                                <select
-                                    class="form-select"
-                                    id="edit-transaction-method"
-                                >
-                                    <option value="pix">Pix</option>
-                                    <option value="credito">Crédito</option>
-                                    <option value="debito">Débito</option>
-                                    <option value="boleto">
-                                        Boleto Bancário
-                                    </option>
-                                    <option value="transferencia-bancaria">
-                                        Transferência Bancária
-                                    </option>
-                                    <option value="carteira-digital">
-                                        Carteira Digital
-                                    </option>
-                                    <option value="dinheiro">Dinheiro</option>
-                                    <option value="cheque">Cheque</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label
-                                    for="edit-transaction-category"
-                                    class="form-label"
-                                    >Categoria</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="edit-transaction-category"
-                                />
-                            </div>
-
-                            <div class="d-flex justify-content-end gap-3">
-                                <button
-                                    id="cancel-update-button"
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Cancelar
-                                </button>
                                 <button
                                     type="submit"
                                     class="btn btn-primary"
-                                    id="save-update-button"
+                                    id="save-update-profile"
                                     disabled
                                 >
-                                    Atualizar
+                                    Atualizar Perfil
                                 </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-danger"
-                                    id="exclude-transaction-button"
-                                    data-bs-target="#confirmationModal"
-                                    data-bs-toggle="modal"
-                                >
-                                    Excluir
+                            </form>
+                        </div>
+                        <div class="border border-warning rounded p-3 mt-4">
+                            <form id="update-password-form">
+                                <legend class="mb-3 text-warning">
+                                    Segurança
+                                </legend>
+                                <div class="form-floating mb-3">
+                                    <input
+                                        type="password"
+                                        placeholder="Senha atual"
+                                        class="form-control"
+                                        id="current-password"
+                                        autocomplete="off"
+                                        minlength="6"
+                                        required
+                                    />
+                                    <label
+                                        for="current-password"
+                                        class="form-label"
+                                        >Senha atual</label
+                                    >
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        placeholder="Nova senha"
+                                        id="new-password"
+                                        minlength="6"
+                                        autocomplete="off"
+                                        required
+                                    />
+                                    <label for="new-password" class="form-label"
+                                        >Nova senha</label
+                                    >
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="confirm-password"
+                                        placeholder="Confirmar nova senha"
+                                        minlength="6"
+                                        autocomplete="off"
+                                        required
+                                    />
+                                    <label
+                                        for="confirm-password"
+                                        class="form-label"
+                                        >Confirmar nova senha</label
+                                    >
+                                </div>
+                                <button type="submit" class="btn btn-warning">
+                                    Atualizar Senha
                                 </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            </form>
+                        </div>
 
-        <div
-            class="modal fade"
-            id="confirmationModal"
-            tabindex="-1"
-            aria-labelledby="confirmationModalLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">
-                            Confirmação
-                        </h5>
-                    </div>
-                    <div class="modal-body">
-                        <p id="confirmationText">
-                            Tem certeza que deseja realizar esta ação?
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            id="cancelButton"
-                            data-bs-dismiss="modal"
+                        <div
+                            class="account-section border border-danger border rounded p-3 mt-4"
                         >
-                            Cancelar
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            id="confirmButton"
-                        >
-                            Confirmar
-                        </button>
+                            <h2 class="text-danger mb-3">Conta</h2>
+                            <button
+                                id="delete-account-button"
+                                class="btn btn-danger"
+                            >
+                                Excluir Conta
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </section>
+            </main>
 
-        <div class="toast-container position-fixed top-0 start-0 p-3">
             <div
-                id="toast"
-                class="toast"
-                role="alert"
-                aria-live="assertive"
-                aria-atomic="true"
+                class="modal fade"
+                id="create-modal"
+                tabindex="-1"
+                aria-hidden="true"
             >
-                <div class="toast-body text-light"></div>
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Criar Transação
+                            </h1>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form-new-transaction">
+                                <div class="mb-3">
+                                    <label
+                                        for="new-transaction-value"
+                                        class="form-label"
+                                        >Valor</label
+                                    >
+                                    <div class="input-group">
+                                        <span class="input-group-text">R$</span>
+                                        <input
+                                            type="text"
+                                            id="new-transaction-value"
+                                            class="form-control"
+                                            placeholder="0,00"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        for="new-transaction-type"
+                                        class="form-label"
+                                        >Tipo</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="new-transaction-type"
+                                    >
+                                        <option value="entrada">Entrada</option>
+                                        <option value="saída">Saída</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label
+                                        for="new-transaction-method"
+                                        class="form-label"
+                                        >Método de Pagamento</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="new-transaction-method"
+                                    >
+                                        <option value="pix">Pix</option>
+                                        <option value="credito">Crédito</option>
+                                        <option value="debito">Débito</option>
+                                        <option value="boleto">
+                                            Boleto Bancário
+                                        </option>
+                                        <option value="transferencia-bancaria">
+                                            Transferência Bancária
+                                        </option>
+                                        <option value="carteira-digital">
+                                            Carteira Digital
+                                        </option>
+                                        <option value="dinheiro">
+                                            Dinheiro
+                                        </option>
+                                        <option value="cheque">Cheque</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label
+                                        for="new-transaction-category"
+                                        class="form-label"
+                                        >Categoria</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="new-transaction-category"
+                                        required
+                                    />
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        id="cancel-create-transaction"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary"
+                                    >
+                                        Criar Agora
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="modal fade"
+                id="edit-modal"
+                tabindex="-1"
+                aria-labelledby="editTransactionLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editTransactionLabel">
+                                Editar Transação
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-transaction-form">
+                                <div class="mb-3">
+                                    <label
+                                        for="edit-transaction-value"
+                                        class="form-label"
+                                        >Valor</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="edit-transaction-value"
+                                    />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label
+                                        for="edit-transaction-type"
+                                        class="form-label"
+                                        >Tipo</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="edit-transaction-type"
+                                    >
+                                        <option value="entrada">Entrada</option>
+                                        <option value="saída">Saída</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label
+                                        for="edit-transaction-method"
+                                        class="form-label"
+                                        >Método de Pagamento</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="edit-transaction-method"
+                                    >
+                                        <option value="pix">Pix</option>
+                                        <option value="credito">Crédito</option>
+                                        <option value="debito">Débito</option>
+                                        <option value="boleto">
+                                            Boleto Bancário
+                                        </option>
+                                        <option value="transferencia-bancaria">
+                                            Transferência Bancária
+                                        </option>
+                                        <option value="carteira-digital">
+                                            Carteira Digital
+                                        </option>
+                                        <option value="dinheiro">
+                                            Dinheiro
+                                        </option>
+                                        <option value="cheque">Cheque</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        for="edit-transaction-category"
+                                        class="form-label"
+                                        >Categoria</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="edit-transaction-category"
+                                    />
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button
+                                        id="cancel-update-button"
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary"
+                                        id="save-update-button"
+                                        disabled
+                                    >
+                                        Atualizar
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        id="exclude-transaction-button"
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="modal fade"
+                id="confirmationModal"
+                tabindex="-1"
+                aria-labelledby="confirmationModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">
+                                Confirmação
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <p id="confirmationText">
+                                Tem certeza que deseja realizar esta ação?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="cancelButton"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="confirmButton"
+                            >
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toast-container position-fixed top-0 start-0 p-3">
+                <div
+                    id="toast"
+                    class="toast"
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                >
+                    <div class="toast-body text-light"></div>
+                </div>
             </div>
         </div>
 

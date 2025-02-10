@@ -8,14 +8,22 @@ export const formatToCurrency = amount => {
 export const formatCurrencyInput = inputElement => {
     inputElement.addEventListener("input", () => {
         let value = inputElement.value.replace(/\D/g, "")
-        const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-        value = (value / 100).toLocaleString("pt-BR", options)
+
+        if (value.length === 0) {
+            inputElement.value = ""
+            return
+        }
+
+        value = (parseFloat(value) / 100).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })
+
         inputElement.value = value
     })
 }
-
 export const unformatCurrency = formattedValue => {
-    let value = formattedValue.replace(/[^\d,.-]/g, "")
+    let value = formattedValue.replace(/\./g, "")
     value = value.replace(",", ".")
     return parseFloat(value)
 }

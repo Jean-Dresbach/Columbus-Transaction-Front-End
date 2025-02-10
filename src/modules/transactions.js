@@ -61,7 +61,7 @@ export const updateBalance = (data, balanceElement) => {
     const totalBalance = data.reduce((acc, transaction) => {
         return transaction.type === "entrada"
             ? acc + Number(transaction.value)
-            : transaction.type === "saida"
+            : transaction.type === "saída"
             ? acc - Number(transaction.value)
             : acc
     }, 0)
