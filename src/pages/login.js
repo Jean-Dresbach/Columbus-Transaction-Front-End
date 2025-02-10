@@ -6,8 +6,9 @@ import {
     validateEmailFormat,
     validateMinLength,
 } from "../modules/validation.js"
+import { checkAuthentication } from "../modules/auth-guard.js"
 
-// Registra os "clear" para os inputs
+checkAuthentication()
 clearValidationOnInput("email", "error-email")
 clearValidationOnInput("password", "error-password")
 

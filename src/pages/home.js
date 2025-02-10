@@ -3,7 +3,6 @@ import { initNavigation } from "../modules/navigation.js"
 import { addFormChangeListeners } from "../modules/validation.js"
 import {
     populateTable,
-    updateUserTitleElement,
     updateTableBasedOnFilters,
 } from "../modules/transactions.js"
 import { formatCurrencyInput, unformatCurrency } from "../modules/format.js"
@@ -14,6 +13,9 @@ import {
     createTransaction,
     updateTransaction,
     deleteTransaction,
+    updateUser,
+    updatePassword,
+    deleteUser,
 } from "../services/api.js"
 
 checkAuthentication()
@@ -24,14 +26,23 @@ const originalValues = {}
 const transactions = []
 const userData = JSON.parse(localStorage.getItem("user"))
 const logoutButton = document.getElementById("logout-btn")
+const updateProfileForm = document.getElementById("update-profile-form")
+const nameInput = document.getElementById("update-name")
+const emailInput = document.getElementById("update-email")
+const updatePasswordForm = document.getElementById("update-password-form")
+const currentPasswordInput = document.getElementById("current-password")
+const newPasswordInput = document.getElementById("new-password")
+const confirmPasswordInput = document.getElementById("confirm-password")
+const deleteAccountButton = document.getElementById("delete-account-button")
 const cancelUpdateButton = document.getElementById("cancel-update-button")
 const deleteTransactionButton = document.getElementById(
     "exclude-transaction-button"
 )
-const openAside = document.querySelector(".open-aside")
+const openAside = document.querySelectorAll(".open-aside")
 const closeAside = document.querySelector(".close-aside")
 const aside = document.querySelector("aside")
 const tableBody = document.getElementById("transaction-table-body")
+const userTitleElement = document.querySelector(".user-title-element")
 const typeFilter = document.getElementById("toogle-type-filter")
 const balanceElement = document.querySelector(".balance h1")
 const editTransactionForm = document.getElementById("edit-transaction-form")
@@ -46,9 +57,16 @@ const editTransactionValueInput = document.getElementById(
 
 initNavigation()
 
-updateUserTitleElement(userData.name)
 formatCurrencyInput(newTransactionValueInput)
 formatCurrencyInput(editTransactionValueInput)
+
+addFormChangeListeners({
+    updateName: userData.name,
+    updateEmail: userData.email,
+})
+
+nameInput.value = userData.name
+emailInput.value = userData.email
 
 const showToast = (message, isSuccess) => {
     const toast = document.getElementById("toast")
@@ -72,6 +90,8 @@ const showToast = (message, isSuccess) => {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+    userTitleElement.innerText = userData.name
+
     try {
         const result = await fetchTransactions()
 
@@ -86,7 +106,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             balanceElement
         )
     } catch (error) {
-        showToast(error.response?.data?.message, false)
+        showToast(
+            error.response?.data?.message || "Erro ao buscar transações.",
+            false
+        )
     }
 })
 
@@ -113,35 +136,49 @@ createTransactionForm.addEventListener("submit", async event => {
             location.reload()
         }, 3000)
     } catch (error) {
-        showToast(error.response?.data?.message, false)
+        showToast(
+            error.response?.data?.message || "Erro ao criar transação.",
+            false
+        )
     }
 })
 
 editTransactionForm.addEventListener("submit", async event => {
     event.preventDefault()
-    try {
-        const value = document.getElementById("edit-transaction-value").value
-        const method = document.getElementById("edit-transaction-method").value
-        const category = document.getElementById(
-            "edit-transaction-category"
-        ).value
-        const type = document.getElementById("edit-transaction-type").value
 
-        const result = await updateTransaction(transactionClickedData.id, {
-            value: unformatCurrency(value),
-            method,
-            category,
-            type,
-        })
+    showConfirmationModal(async () => {
+        try {
+            const value = document.getElementById(
+                "edit-transaction-value"
+            ).value
+            const method = document.getElementById(
+                "edit-transaction-method"
+            ).value
+            const category = document.getElementById(
+                "edit-transaction-category"
+            ).value
+            const type = document.getElementById("edit-transaction-type").value
 
-        showToast(result.message, true)
+            const result = await updateTransaction(transactionClickedData.id, {
+                value: unformatCurrency(value),
+                method,
+                category,
+                type,
+            })
 
-        setTimeout(() => {
-            location.reload()
-        }, 3000)
-    } catch (error) {
-        showToast(error.response?.data?.message, false)
-    }
+            showToast(result.message, true)
+
+            setTimeout(() => {
+                location.reload()
+            }, 3000)
+        } catch (error) {
+            showToast(
+                error.response?.data?.message ||
+                    "Erro ao atualizar a transação.",
+                false
+            )
+        }
+    }, "deseja atualizar esta transação?")
 })
 
 deleteTransactionButton.addEventListener("click", async () => {
@@ -155,7 +192,10 @@ deleteTransactionButton.addEventListener("click", async () => {
                 location.reload()
             }, 2000)
         } catch (error) {
-            showToast(error.response?.data?.message, false)
+            showToast(
+                error.response?.data?.message || "Erro ao excluír a transação.",
+                false
+            )
         }
     }, "deseja excluír esta transação?")
 })
@@ -177,6 +217,83 @@ searchInput.addEventListener(
     }, 800)
 )
 
+updateProfileForm.addEventListener("submit", async event => {
+    event.preventDefault()
+
+    const name = nameInput.value.trim()
+    const email = emailInput.value.trim()
+
+    showConfirmationModal(async () => {
+        try {
+            const result = await updateUser(name, email)
+
+            localStorage.setItem("user", JSON.stringify(result.data))
+
+            showToast(result.message, true)
+
+            setTimeout(() => {
+                location.reload()
+            }, 2000)
+        } catch (error) {
+            showToast(
+                error.response?.data?.message || "Erro ao atualizar o perfil.",
+                false
+            )
+            setTimeout(() => {
+                location.reload()
+            }, 2000)
+        }
+    }, "que deseja atualizar seu perfil?")
+})
+
+updatePasswordForm.addEventListener("submit", async event => {
+    event.preventDefault()
+
+    const currentPassword = currentPasswordInput.value
+    const newPassword = newPasswordInput.value
+    const confirmPassword = confirmPasswordInput.value
+
+    if (newPassword !== confirmPassword) {
+        showToast("A nova senha não coincide com a confirmação.", false)
+        return
+    }
+
+    showConfirmationModal(async () => {
+        try {
+            const result = await updatePassword(currentPassword, newPassword)
+
+            showToast(result.message, true)
+        } catch (error) {
+            showToast(
+                error.response?.data?.message || "Erro ao atualizar a senha.",
+                false
+            )
+        }
+    }, "deseja alterar sua senha?")
+})
+
+deleteAccountButton.addEventListener("click", () => {
+    showConfirmationModal(async () => {
+        try {
+            const result = await deleteUser()
+
+            showToast(result.message, true)
+
+            localStorage.removeItem("user")
+            localStorage.removeItem("token")
+
+            setTimeout(() => {
+                window.location.href = "/"
+            }, 2000)
+        } catch (error) {
+            showToast(
+                error.response?.data?.message || "Erro ao excluir conta.",
+                false
+            )
+        }
+    }, "deseja excluir sua conta?")
+})
+
 typeFilter.addEventListener("click", () => {
     filterState = (filterState + 1) % 3
 
@@ -189,9 +306,11 @@ typeFilter.addEventListener("click", () => {
     )
 })
 
-openAside.addEventListener("click", () => {
-    aside.classList.toggle("block")
-    closeAside.classList.toggle("flex")
+openAside.forEach(button => {
+    button.addEventListener("click", () => {
+        aside.classList.toggle("block")
+        closeAside.classList.toggle("flex")
+    })
 })
 
 closeAside.addEventListener("click", () => {

@@ -74,10 +74,6 @@ export const updateBalance = (data, balanceElement) => {
     balanceElement.innerHTML = `<sup>R$</sup>${formattedInteger}<sub>,${formattedDecimal}</sub>`
 }
 
-export const updateUserTitleElement = name => {
-    document.getElementById("user-name-title-element").innerText = name
-}
-
 export const updateTableBasedOnFilters = (searchInput, transactions) => {
     const searchQuery = searchInput.value.trim().toLowerCase()
 

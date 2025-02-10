@@ -32,40 +32,61 @@ export const addFormChangeListeners = originalValues => {
     const methodSelect = document.getElementById("edit-transaction-method")
     const categoryInput = document.getElementById("edit-transaction-category")
     const typeSelect = document.getElementById("edit-transaction-type")
+    const nameInput = document.getElementById("update-name")
+    const emailInput = document.getElementById("update-email")
 
+    emailInput.removeEventListener("input", checkForChanges)
+    nameInput.removeEventListener("input", checkForChanges)
     valueInput.removeEventListener("input", checkForChanges)
     methodSelect.removeEventListener("change", checkForChanges)
     categoryInput.removeEventListener("input", checkForChanges)
     typeSelect.removeEventListener("change", checkForChanges)
-    valueInput.addEventListener("input", checkForChanges)
-    methodSelect.addEventListener("change", checkForChanges)
-    categoryInput.addEventListener("input", checkForChanges)
-    typeSelect.addEventListener("change", checkForChanges)
+
+    valueInput.addEventListener("input", event => {
+        checkForChanges({ value: event.target.value }, originalValues)
+    })
+    methodSelect.addEventListener("change", event => {
+        checkForChanges({ method: event.target.value }, originalValues)
+    })
+    categoryInput.addEventListener("input", event => {
+        checkForChanges({ category: event.target.value.trim() }, originalValues)
+    })
+    typeSelect.addEventListener("change", event => {
+        checkForChanges({ type: event.target.value }, originalValues)
+    })
+    emailInput.addEventListener("input", event => {
+        checkForChanges(
+            { updateEmail: event.target.value.trim() },
+            originalValues
+        )
+    })
+    nameInput.addEventListener("input", event => {
+        checkForChanges(
+            { updateName: event.target.value.trim() },
+            originalValues
+        )
+    })
 }
 
-function checkForChanges(originalValues) {
-    const valueInput = document.getElementById("edit-transaction-value").value
-    const methodSelect = document.getElementById(
-        "edit-transaction-method"
-    ).value
-    const categoryInput = document
-        .getElementById("edit-transaction-category")
-        .value.trim()
-    const typeSelect = document.getElementById("edit-transaction-type").value
+const hasChanged = (currentValue, originalValues, property) => {
+    return (
+        currentValue[property] !== undefined &&
+        currentValue[property] !== originalValues[property]
+    )
+}
 
-    const currentValues = {
-        value: valueInput,
-        method: methodSelect,
-        category: categoryInput,
-        type: typeSelect,
-    }
+const checkForChanges = (currentValue, originalValues) => {
+    const transactionProperties = ["value", "method", "category", "type"]
+    const profileProperties = ["updateName", "updateEmail"]
 
-    const isChanged =
-        currentValues.value !== originalValues.value ||
-        currentValues.method !== originalValues.method ||
-        currentValues.category !== originalValues.category ||
-        currentValues.type !== originalValues.type
+    const isTransactionChanged = transactionProperties.some(prop =>
+        hasChanged(currentValue, originalValues, prop)
+    )
+    document.querySelector("#save-update-button").disabled =
+        !isTransactionChanged
 
-    // Habilita ou desabilita o botão de salvar
-    document.getElementById("save-update-button").disabled = !isChanged
+    const isProfileChanged = profileProperties.some(prop =>
+        hasChanged(currentValue, originalValues, prop)
+    )
+    document.querySelector("#save-update-profile").disabled = !isProfileChanged
 }

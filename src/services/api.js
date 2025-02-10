@@ -25,8 +25,6 @@ export const login = async (email, password, stayLoggedIn) => {
 }
 
 export const signup = async (name, email, password) => {
-    console.log(name, email, password)
-
     const response = await api.post("/users/signup", { name, email, password })
 
     if (response.data.code != 201) {
@@ -40,7 +38,7 @@ export const updateUser = async (name, email, password) => {
     const response = await api.put("/users", { name, email, password })
 
     if (response.data.code != 200) {
-        throw new Error(response.message)
+        throw new Error(response.data.message)
     }
 
     return response.data

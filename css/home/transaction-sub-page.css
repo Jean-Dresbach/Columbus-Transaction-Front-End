@@ -8,28 +8,6 @@
     gap: 14px;
 }
 
-#transactions .open-aside {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 40px;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    border-radius: 8px;
-}
-
-#transactions .open-aside i {
-    line-height: 0;
-    font-size: 25px;
-}
-
-#transactions .open-aside:hover {
-    background-color: rgba(217, 217, 217, 0.3);
-}
-
 #transactions .header-actions {
     display: flex;
     justify-content: end;
@@ -251,6 +229,16 @@
 @media (max-width: 576px) {
     .table {
         font-size: 14px;
+    }
+
+    #transactions {
+        padding: 30px;
+    }
+}
+
+@media (min-width: 577px) {
+    #transactions .open-aside {
+        display: none;
     }
 }
 

@@ -36,7 +36,7 @@
                 <a href="#transactions" class="nav-link active">
                     <i class="bi bi-cash-coin"></i>
                 </a>
-                <a href="#user" class="nav-link">
+                <a href="#users" class="nav-link">
                     <i class="bi bi-person-fill-gear"></i>
                 </a>
             </nav>
@@ -49,13 +49,11 @@
         <main>
             <section id="transactions" class="page">
                 <header>
-                    <button class="open-aside btn d-sm-none">
+                    <button class="open-aside btn">
                         <i class="bi bi-list"></i>
                     </button>
 
-                    <h1 id="user-name-title-element" class="d-none d-sm-block">
-                        {NOME USUÁRIO}
-                    </h1>
+                    <h1 class="user-title-element">{NOME USUÁRIO}</h1>
 
                     <div class="header-actions">
                         <div class="input-group search-input">
@@ -115,11 +113,115 @@
                 </div>
             </section>
 
-            <section
-                id="user"
-                class="page hidden"
-                style="background-color: red"
-            ></section>
+            <section id="users" class="page hidden">
+                <header class="d-flex justify-content-between">
+                    <h2 class="m-0">Gerenciar Conta</h2>
+
+                    <button class="open-aside btn">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </header>
+
+                <div class="main-content">
+                    <div class="border border-primary rounded p-3">
+                        <form id="update-profile-form">
+                            <legend class="mb-3 text-primary">Perfil</legend>
+                            <div class="mb-3">
+                                <label for="update-name" class="form-label"
+                                    >Nome</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="update-name"
+                                />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="update-email" class="form-label"
+                                    >E-mail</label
+                                >
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="update-email"
+                                    required
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="save-update-profile"
+                                disabled
+                            >
+                                Atualizar Perfil
+                            </button>
+                        </form>
+                    </div>
+                    <div class="border border-warning rounded p-3 mt-4">
+                        <form id="update-password-form">
+                            <legend class="mb-3 text-warning">Segurança</legend>
+                            <div class="form-floating mb-3">
+                                <input
+                                    type="password"
+                                    placeholder="Senha atual"
+                                    class="form-control"
+                                    id="current-password"
+                                    autocomplete="off"
+                                    minlength="6"
+                                    required
+                                />
+                                <label for="current-password" class="form-label"
+                                    >Senha atual</label
+                                >
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Nova senha"
+                                    id="new-password"
+                                    minlength="6"
+                                    autocomplete="off"
+                                    required
+                                />
+                                <label for="new-password" class="form-label"
+                                    >Nova senha</label
+                                >
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="confirm-password"
+                                    placeholder="Confirmar nova senha"
+                                    minlength="6"
+                                    autocomplete="off"
+                                    required
+                                />
+                                <label for="confirm-password" class="form-label"
+                                    >Confirmar nova senha</label
+                                >
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                Atualizar Senha
+                            </button>
+                        </form>
+                    </div>
+
+                    <div
+                        class="account-section border border-danger border rounded p-3 mt-4"
+                    >
+                        <h2 class="text-danger mb-3">Conta</h2>
+                        <button
+                            id="delete-account-button"
+                            class="btn btn-danger"
+                        >
+                            Excluir Conta
+                        </button>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <div
@@ -368,6 +470,7 @@
                         <button
                             type="button"
                             class="btn btn-secondary"
+                            id="cancelButton"
                             data-bs-dismiss="modal"
                         >
                             Cancelar
